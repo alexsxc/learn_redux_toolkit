@@ -1,20 +1,10 @@
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import { decrementAction, incrementAction, store } from './store'
+import { CounterId, decrementAction, incrementAction, store } from './store'
 import { useEffect, useReducer } from 'react'
 
 function App() {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-
-  useEffect(() => {
-    const unsubscribe = store.subscribe(() => {
-      forceUpdate();
-    });
-
-    return unsubscribe;
-  }, []);
-
   return (
     <>
       <div>
@@ -27,16 +17,8 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        counter{store.getState().counter}
-        <button onClick={() => store.dispatch({ type: 'increment' } satisfies incrementAction)}>
-          increment
-        </button>
-        <button onClick={() => store.dispatch({ type: 'decrement' } satisfies decrementAction)}>
-          decrement
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <Counter counterId='first'/>
+        <Counter counterId='second'/>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
@@ -44,5 +26,31 @@ function App() {
     </>
   )
 }
+export function Counter({counterId}: {counterId: CounterId})  {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
+  useEffect(() => {
+    const unsubscribe = store.subscribe(() => {
+      forceUpdate();
+    });
+
+    return unsubscribe;
+  }, []);
+  return (
+    <>
+    counter {store.getState().counters[counterId]?.counter}
+    <button 
+      onClick={() => store.dispatch({ type: 'increment', payload: {counterId} } satisfies incrementAction)}>
+      increment
+    </button>
+    <button 
+      onClick={() => store.dispatch({ type: 'decrement', payload: {counterId} } satisfies decrementAction)}>
+      decrement
+    </button>
+    <p>
+      Edit <code>src/App.tsx</code> and save to test HMR
+    </p>
+  </>
+  )
+}
 export default App
