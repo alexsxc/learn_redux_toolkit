@@ -70,26 +70,17 @@ Here's an overview of the project's structure:
 ```
 react-redux-practice/
 ├── public/
-│   ├── index.html
 │   └── ...
 ├── src/
-│   ├── app/
-│   │   ├── store.js
-│   │   └── ...
-│   ├── features/
-│   │   ├── counter/
-│   │   │   ├── Counter.jsx
-│   │   │   ├── counterSlice.js
-│   │   │   └── ...
-│   │   └── ...
 │   ├── components/
 │   │   └── ...
-│   ├── App.jsx
-│   ├── main.jsx
+│   ├── App.tsx
+│   ├── main.tsx
 │   └── ...
 ├── .gitignore
 ├── package.json
 ├── README.md
+├── index.html
 └── ...
 ```
 
